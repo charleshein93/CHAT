@@ -1,0 +1,16 @@
+{
+  "name": "iochat",
+  "version": "1.0.0",
+  "description": "chat simple",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carlos Hein",
+  "license": "ISC",
+  "dependencies": {
+    "express": "*",
+    "nodemon": "^1.11.0",
+    "socket.io": "*"
+  }
+}
