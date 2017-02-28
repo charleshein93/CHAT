@@ -21,53 +21,78 @@
 </head>
 <body>
 	<div class="container">
+
 		<div id="userFormArea" class="row">
+
 			<div class="col-md-12">
+
 				<form id="userForm">
+
 					<div class="form-group">
+
 						<label>Ingrese Usuario</label>
-						<input id="username" class="form-control">
-						<br>
+						<input id="username" class="form-control" required><br>
 						<input type="submit" class="btn btn-primary" value="Ingresar">
+
 					</div>
+
 				</form>
+
 			</div>
+
 		</div>
 
 		<div id="messageArea" class="row">
+
 			<div class="col-md-4">
+
 				<div class="well">
+
 					<h3>Usuarios Online</h3>
 					<ul class="list-group" id="users"></ul>
+
 				</div>
+
 			</div>
+
 			<div class="col-md-8">
-				<div class="chat" id="chat">
+
+				<div class="chat" id="chat" style="overflow:scroll; overflow-x:hidden;height:500px;width:600px;">
 					
 				</div>
+
 				<form id="messageForm">
+
 					<div class="form-group">
+
 						<label>Ingrese Mensaje</label>
-						<textarea id="message" class="form-control"></textarea>
-						<br>
+						<textarea id="message" class="form-control" required></textarea><br>
 						<input type="submit" class="btn btn-primary" value="Enviar Mensaje">
+
 					</div>
+
 				</form>
+
 			</div>
+
 		</div>
+
 	</div>
-	
+
+
+
 	<script>
 		$(function(){
 			var socket = io.connect();
-			var $messageForm = $('#messageForm');
-			var $message = $('#message');
-			var $chat = $('#chat');
+			var $messageForm = $('#messageForm');//ID FORMULARIO DE MENSAJES
+			var $message = $('#message');//ID TEXTAREA FORMULARIO
+			var $chat = $('#chat');//
 			var $messageArea = $('#messageArea');
 			var $userFormArea = $('#userFormArea');
 			var $userForm = $('#userForm');
 			var $users = $('#users');
 			var $username = $('#username');
+			var $registro = $('#registro');
 
 			$messageForm.submit(function(e){
 				e.preventDefault();
@@ -76,8 +101,22 @@
 				//console.log('Enviado');
 			});
 
+
+//MUESTRA EL REGISTRO DEL CHAT QUE HAY EN LA BD
+
+    socket.on('showrows', function(rows) {
+
+        for (var i=0; i<rows.length; i++) {
+          $chat.append('<div class="well"><strong>'+rows[i].usuario+'</strong>: '+rows[i].texto + ' ' +rows[i].hora+'</div>');
+        }  
+        console.log(rows);
+    });
+	
+//MUESTRA EL MENSAJE RECIEN GENERADO
+
 			socket.on('nuevo mensaje', function(data){
-				$chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>')
+				
+				$chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>');
 			});
 
 			$userForm.submit(function(e){

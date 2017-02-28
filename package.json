@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "*",
+    "forever": "^0.15.3",
+    "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "socket.io": "*"
   }
