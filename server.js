@@ -5,6 +5,7 @@ var mysql = require("mysql");
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
+
 //CREANDO CONEXION CON LA BASE DE DATOS MYSQL
 
 var pool    =    mysql.createPool({
@@ -97,6 +98,7 @@ io.sockets.on('connection', function(socket){
 
 	function updateUsernames(){
 		io.sockets.emit('get users', users);
+		console.log('Usuarios conectados: ', users);
 	}
 
 });
